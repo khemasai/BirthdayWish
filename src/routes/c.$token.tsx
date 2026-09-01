@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Confetti } from "@/components/Confetti";
-import { decodeCard, getTheme } from "@/lib/card";
+import { getTheme } from "@/lib/card";
+import { loadCard } from "@/lib/cards.api";
 
 export const Route = createFileRoute("/c/$token")({
+  loader: async ({ params }) => ({ card: await loadCard(params.token) }),
   head: () => ({
     meta: [
       { title: "A Birthday Card Just For You — PartyPop" },
@@ -17,17 +19,19 @@ export const Route = createFileRoute("/c/$token")({
         property: "og:description",
         content: "Tap to open your card and let the confetti fly.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CardView,
 });
 
 function CardView() {
-  const { token } = Route.useParams();
-  const data = decodeCard(token);
+  const { card: data } = Route.useLoaderData();
   const [open, setOpen] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
   const t = getTheme(data?.theme ?? "cosmos");
+
 
   if (!data) {
     return (
