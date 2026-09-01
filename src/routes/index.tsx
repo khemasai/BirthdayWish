@@ -53,7 +53,7 @@ function Create() {
 
   return (
     <div
-      className={`min-h-screen w-full font-body text-ink relative overflow-hidden ${t.page}`}
+      className={`min-h-screen w-full font-body text-ink relative overflow-hidden bg-gradient-to-br from-brand via-purple-400 to-brand2`}
     >
       <div
         className="absolute inset-0 opacity-40"
@@ -229,7 +229,7 @@ function Create() {
             <div
               className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}
             >
-              <div className="relative rounded-[1.6rem] bg-gradient-to-b from-white to-cream p-8 text-center overflow-hidden">
+              <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
                 <Confetti colors={t.confetti} count={8} />
                 <p className="text-5xl">🎂</p>
                 <p

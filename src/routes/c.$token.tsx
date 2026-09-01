@@ -52,7 +52,7 @@ function CardView() {
 
   return (
     <div
-      className={`min-h-screen w-full font-body text-ink relative overflow-hidden flex flex-col ${t.page}`}
+      className={`min-h-screen w-full font-body text-ink relative overflow-hidden flex flex-col bg-gradient-to-br from-brand via-purple-400 to-brand2`}
     >
       <div
         className="absolute inset-0 opacity-40"
@@ -73,7 +73,7 @@ function CardView() {
           >
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60" />
             <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
-              <div className="rounded-[1.6rem] bg-gradient-to-b from-white to-cream px-8 py-14">
+              <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
                 <p className="text-5xl">✉️</p>
                 <p className="mt-4 text-[11px] font-bold uppercase tracking-widest text-brand/70">
                   Sealed for
@@ -101,7 +101,7 @@ function CardView() {
               className={`lid absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
             />
             <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
-              <div className="relative rounded-[1.6rem] bg-gradient-to-b from-white to-cream p-8 text-center overflow-hidden">
+              <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
                 <Confetti colors={t.confetti} count={8} />
                 <p className="text-5xl rise" style={{ animationDelay: ".5s" }}>
                   🎂
