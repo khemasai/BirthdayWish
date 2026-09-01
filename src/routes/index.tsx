@@ -39,9 +39,7 @@ function Create() {
     [to, message, from, theme],
   );
 
-  const generate = async () => {
-    const url = `${window.location.origin}/c/${token}`;
-    setLink(url);
+  const copy = async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -51,9 +49,28 @@ function Create() {
     }
   };
 
+  const generate = async () => {
+    const url = `${window.location.origin}/c/${token}`;
+    setLink(url);
+    await copy(url);
+  };
+
+  const share = async (url: string) => {
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: `A birthday card for ${to}`, url });
+        return;
+      } catch {
+        /* fall through to copy */
+      }
+    }
+    await copy(url);
+  };
+
+
   return (
     <div
-      className={`min-h-screen w-full font-body text-ink relative overflow-hidden ${t.page}`}
+      className={`min-h-screen w-full font-body text-ink relative overflow-hidden bg-gradient-to-br from-brand via-purple-400 to-brand2`}
     >
       <div
         className="absolute inset-0 opacity-40"
@@ -123,16 +140,28 @@ function Create() {
                 <button
                   key={th.id}
                   title={th.name}
-                  aria-label={th.name}
+                  aria-pressed={theme === th.id}
                   onClick={() => setTheme(th.id)}
-                  className={`aspect-square rounded-xl ${th.swatch} ${
-                    theme === th.id
-                      ? "ring-4 ring-brand/40 shadow-inner"
-                      : "shadow-md hover:scale-105 transition-transform"
-                  }`}
-                />
+                  className="group text-center focus:outline-none"
+                >
+                  <span
+                    className={`block aspect-square rounded-xl ${th.swatch} transition-all duration-300 group-hover:-translate-y-0.5 group-active:scale-95 ${
+                      theme === th.id
+                        ? "ring-4 ring-brand/40 shadow-inner scale-105"
+                        : "shadow-md opacity-80 group-hover:opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`mt-1.5 block text-[10px] font-semibold ${
+                      theme === th.id ? "text-brand" : "text-ink/40"
+                    }`}
+                  >
+                    {th.name}
+                  </span>
+                </button>
               ))}
             </div>
+
 
             <label className="block text-[11px] font-bold uppercase tracking-widest text-brand mt-4">
               Their name
@@ -167,9 +196,10 @@ function Create() {
 
             <button
               onClick={generate}
-              className="mt-4 w-full font-display font-semibold text-ink text-lg py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 hover:scale-[1.02] transition-transform"
+              disabled={!to.trim()}
+              className="mt-4 w-full font-display font-semibold text-ink text-lg py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
             >
-              Create card &amp; get link ↗
+              {link ? "Update card link ↻" : "Create card & get link ↗"}
             </button>
 
             {link && (
@@ -180,20 +210,21 @@ function Create() {
                 <p className="mt-1 text-xs text-ink/70 break-all">{link}</p>
                 <div className="mt-3 flex gap-2">
                   <button
-                    onClick={generate}
-                    className="flex-1 text-xs font-semibold rounded-xl bg-brand text-cream py-2"
+                    onClick={() => share(link)}
+                    className="flex-1 text-xs font-semibold rounded-xl bg-brand text-cream py-2 transition-transform hover:scale-[1.03] active:scale-95"
                   >
-                    Copy link
+                    {copied ? "Copied ✓" : "Share link"}
                   </button>
                   <Link
                     to="/c/$token"
                     params={{ token }}
-                    className="flex-1 text-center text-xs font-semibold rounded-xl bg-ink text-cream py-2"
+                    className="flex-1 text-center text-xs font-semibold rounded-xl bg-ink text-cream py-2 transition-transform hover:scale-[1.03] active:scale-95"
                   >
                     Open card
                   </Link>
                 </div>
               </div>
+
             )}
           </div>
         </div>
@@ -229,7 +260,7 @@ function Create() {
             <div
               className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}
             >
-              <div className="relative rounded-[1.6rem] bg-gradient-to-b from-white to-cream p-8 text-center overflow-hidden">
+              <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
                 <Confetti colors={t.confetti} count={8} />
                 <p className="text-5xl">🎂</p>
                 <p
