@@ -20,7 +20,10 @@ export const Route = createFileRoute("/")({
         content:
           "Create an animated birthday card in seconds and send it as a link. Themes, confetti and a big reveal included.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+
   }),
   component: Create,
 });
