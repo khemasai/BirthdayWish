@@ -55,7 +55,7 @@ export const THEMES: {
 ];
 
 export const getTheme = (id: string) =>
-  THEMES.find((t) => t.id === id) ?? THEMES[0];
+  THEMES.find((t) => t.id === id) ?? THEMES[0]!;
 
 export function encodeCard(data: CardData): string {
   const json = JSON.stringify(data);
