@@ -62,31 +62,34 @@ function CardView() {
           backgroundSize: "22px 22px",
         }}
       />
-      {open && <Confetti colors={t.confetti} count={48} burst />}
+      {open && <Confetti key={burstKey} colors={t.confetti} count={48} burst />}
 
       <main className="relative z-10 flex-1 grid place-items-center px-6 py-12">
         {!open ? (
           <button
             onClick={() => setOpen(true)}
-            className="pop relative w-full max-w-sm text-center"
+            className="pop group relative w-full max-w-sm text-center transition-transform duration-300 hover:-translate-y-1 active:scale-95 focus:outline-none"
             aria-label="Open your birthday card"
           >
-            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60" />
+            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60 transition-opacity duration-300 group-hover:opacity-90" />
             <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
               <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
-                <p className="text-5xl">✉️</p>
+                <p className="text-5xl wobble">✉️</p>
                 <p className="mt-4 text-[11px] font-bold uppercase tracking-widest text-brand/70">
                   Sealed for
                 </p>
-                <p className="font-display font-bold text-4xl text-brand mt-1 break-words">
+                <p
+                  className={`font-display font-bold text-4xl mt-1 break-words ${t.accentText}`}
+                >
                   {data.to || "You"}
                 </p>
-                <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40">
+                <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-300 group-hover:scale-105">
                   Tap to open 🎉
                 </p>
               </div>
             </div>
           </button>
+
         ) : (
           <div className="relative w-full max-w-sm">
             <span className="absolute -top-8 left-2 text-gold text-2xl twinkle">✦</span>
