@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Confetti } from "@/components/Confetti";
-import { THEMES, encodeCard, getTheme, type ThemeId } from "@/lib/card";
+import { THEMES, getTheme, type ThemeId } from "@/lib/card";
+import { MAX_FROM, MAX_MESSAGE, MAX_TO, saveCard } from "@/lib/cards.api";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
