@@ -123,16 +123,28 @@ function Create() {
                 <button
                   key={th.id}
                   title={th.name}
-                  aria-label={th.name}
+                  aria-pressed={theme === th.id}
                   onClick={() => setTheme(th.id)}
-                  className={`aspect-square rounded-xl ${th.swatch} ${
-                    theme === th.id
-                      ? "ring-4 ring-brand/40 shadow-inner"
-                      : "shadow-md hover:scale-105 transition-transform"
-                  }`}
-                />
+                  className="group text-center focus:outline-none"
+                >
+                  <span
+                    className={`block aspect-square rounded-xl ${th.swatch} transition-all duration-300 group-hover:-translate-y-0.5 group-active:scale-95 ${
+                      theme === th.id
+                        ? "ring-4 ring-brand/40 shadow-inner scale-105"
+                        : "shadow-md opacity-80 group-hover:opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`mt-1.5 block text-[10px] font-semibold ${
+                      theme === th.id ? "text-brand" : "text-ink/40"
+                    }`}
+                  >
+                    {th.name}
+                  </span>
+                </button>
               ))}
             </div>
+
 
             <label className="block text-[11px] font-bold uppercase tracking-widest text-brand mt-4">
               Their name
