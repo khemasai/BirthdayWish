@@ -196,9 +196,10 @@ function Create() {
 
             <button
               onClick={generate}
-              className="mt-4 w-full font-display font-semibold text-ink text-lg py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 hover:scale-[1.02] transition-transform"
+              disabled={!to.trim()}
+              className="mt-4 w-full font-display font-semibold text-ink text-lg py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
             >
-              Create card &amp; get link ↗
+              {link ? "Update card link ↻" : "Create card & get link ↗"}
             </button>
 
             {link && (
@@ -209,20 +210,21 @@ function Create() {
                 <p className="mt-1 text-xs text-ink/70 break-all">{link}</p>
                 <div className="mt-3 flex gap-2">
                   <button
-                    onClick={generate}
-                    className="flex-1 text-xs font-semibold rounded-xl bg-brand text-cream py-2"
+                    onClick={() => share(link)}
+                    className="flex-1 text-xs font-semibold rounded-xl bg-brand text-cream py-2 transition-transform hover:scale-[1.03] active:scale-95"
                   >
-                    Copy link
+                    {copied ? "Copied ✓" : "Share link"}
                   </button>
                   <Link
                     to="/c/$token"
                     params={{ token }}
-                    className="flex-1 text-center text-xs font-semibold rounded-xl bg-ink text-cream py-2"
+                    className="flex-1 text-center text-xs font-semibold rounded-xl bg-ink text-cream py-2 transition-transform hover:scale-[1.03] active:scale-95"
                   >
                     Open card
                   </Link>
                 </div>
               </div>
+
             )}
           </div>
         </div>
