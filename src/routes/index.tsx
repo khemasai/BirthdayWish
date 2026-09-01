@@ -39,9 +39,7 @@ function Create() {
     [to, message, from, theme],
   );
 
-  const generate = async () => {
-    const url = `${window.location.origin}/c/${token}`;
-    setLink(url);
+  const copy = async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -50,6 +48,25 @@ function Create() {
       setCopied(false);
     }
   };
+
+  const generate = async () => {
+    const url = `${window.location.origin}/c/${token}`;
+    setLink(url);
+    await copy(url);
+  };
+
+  const share = async (url: string) => {
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: `A birthday card for ${to}`, url });
+        return;
+      } catch {
+        /* fall through to copy */
+      }
+    }
+    await copy(url);
+  };
+
 
   return (
     <div
