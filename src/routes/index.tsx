@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Confetti } from "@/components/Confetti";
-import { THEMES, encodeCard, getTheme, type ThemeId } from "@/lib/card";
+import { THEMES, getTheme, type ThemeId } from "@/lib/card";
+import { MAX_FROM, MAX_MESSAGE, MAX_TO, saveCard } from "@/lib/cards.api";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,7 +20,10 @@ export const Route = createFileRoute("/")({
         content:
           "Create an animated birthday card in seconds and send it as a link. Themes, confetti and a big reveal included.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+
   }),
   component: Create,
 });
@@ -31,13 +36,12 @@ function Create() {
   const [from, setFrom] = useState("The Crew");
   const [theme, setTheme] = useState<ThemeId>("cosmos");
   const [link, setLink] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const t = getTheme(theme);
-  const token = useMemo(
-    () => encodeCard({ to, message, from, theme }),
-    [to, message, from, theme],
-  );
 
   const copy = async (url: string) => {
     try {
@@ -50,9 +54,19 @@ function Create() {
   };
 
   const generate = async () => {
-    const url = `${window.location.origin}/c/${token}`;
-    setLink(url);
-    await copy(url);
+    setSaving(true);
+    setError(null);
+    try {
+      const newCode = await saveCard({ to, message, from, theme });
+      const url = `${window.location.origin}/c/${newCode}`;
+      setCode(newCode);
+      setLink(url);
+      await copy(url);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong. Try again.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const share = async (url: string) => {
@@ -66,6 +80,8 @@ function Create() {
     }
     await copy(url);
   };
+
+
 
 
   return (
@@ -168,6 +184,7 @@ function Create() {
             </label>
             <input
               value={to}
+              maxLength={MAX_TO}
               onChange={(e) => setTo(e.target.value)}
               className="w-full mt-1.5 rounded-xl border-2 border-brand/20 bg-cream px-4 py-2.5 text-sm text-ink outline-none focus:border-brand"
               placeholder="Maya"
@@ -179,6 +196,7 @@ function Create() {
             <textarea
               rows={3}
               value={message}
+              maxLength={MAX_MESSAGE}
               onChange={(e) => setMessage(e.target.value)}
               className="w-full mt-1.5 rounded-xl border-2 border-brand/20 bg-cream px-4 py-2.5 text-sm text-ink outline-none focus:border-brand resize-none"
               placeholder="Happy 30th, Maya! 🎈"
@@ -189,6 +207,7 @@ function Create() {
             </label>
             <input
               value={from}
+              maxLength={MAX_FROM}
               onChange={(e) => setFrom(e.target.value)}
               className="w-full mt-1.5 rounded-xl border-2 border-brand/20 bg-cream px-4 py-2.5 text-sm text-ink outline-none focus:border-brand"
               placeholder="The Crew"
@@ -196,16 +215,24 @@ function Create() {
 
             <button
               onClick={generate}
-              disabled={!to.trim()}
+              disabled={!to.trim() || saving}
               className="mt-4 w-full font-display font-semibold text-ink text-lg py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
             >
-              {link ? "Update card link ↻" : "Create card & get link ↗"}
+              {saving
+                ? "Making your link…"
+                : link
+                  ? "Make a new link ↻"
+                  : "Create card & get link ↗"}
             </button>
 
-            {link && (
+            {error && (
+              <p className="mt-3 text-xs font-semibold text-accent">{error}</p>
+            )}
+
+            {link && code && (
               <div className="mt-4 rounded-2xl bg-cream border-2 border-brand/15 p-3 rise">
                 <p className="text-[11px] font-bold uppercase tracking-widest text-brand/70">
-                  {copied ? "Link copied ✓" : "Your share link"}
+                  {copied ? "Link copied ✓" : "Your short share link"}
                 </p>
                 <p className="mt-1 text-xs text-ink/70 break-all">{link}</p>
                 <div className="mt-3 flex gap-2">
@@ -217,7 +244,7 @@ function Create() {
                   </button>
                   <Link
                     to="/c/$token"
-                    params={{ token }}
+                    params={{ token: code }}
                     className="flex-1 text-center text-xs font-semibold rounded-xl bg-ink text-cream py-2 transition-transform hover:scale-[1.03] active:scale-95"
                   >
                     Open card
@@ -226,6 +253,7 @@ function Create() {
               </div>
 
             )}
+
           </div>
         </div>
 
