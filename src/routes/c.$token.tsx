@@ -100,9 +100,9 @@ function CardView() {
             >
               ✦
             </span>
-            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60" />
+            <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60" />
             <div
-              className={`lid absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
+              className={`pointer-events-none lid absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
             />
             <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
               <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
