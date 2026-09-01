@@ -14,13 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cards: {
+        Row: {
+          code: string
+          created_at: string
+          from_name: string
+          message: string
+          theme: string
+          to_name: string
+        }
+        Insert: {
+          code?: string
+          created_at?: string
+          from_name?: string
+          message?: string
+          theme?: string
+          to_name: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          from_name?: string
+          message?: string
+          theme?: string
+          to_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_card_code: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
