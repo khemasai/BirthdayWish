@@ -26,6 +26,7 @@ function CardView() {
   const { token } = Route.useParams();
   const data = decodeCard(token);
   const [open, setOpen] = useState(false);
+  const [burstKey, setBurstKey] = useState(0);
   const t = getTheme(data?.theme ?? "cosmos");
 
   if (!data) {
@@ -116,7 +117,7 @@ function CardView() {
                   Happy Birthday
                 </p>
                 <h1
-                  className="font-display font-semibold text-brand text-4xl mt-1 break-words rise"
+                  className={`font-display font-semibold text-4xl mt-1 break-words rise ${t.accentText}`}
                   style={{ animationDelay: ".8s" }}
                 >
                   {data.to || "Friend"}!
@@ -137,9 +138,15 @@ function CardView() {
                 </div>
               </div>
             </div>
+            <button
+              onClick={() => setBurstKey((k) => k + 1)}
+              className="mt-6 w-full font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform hover:scale-[1.02] active:scale-95"
+            >
+              Pop the confetti again 🎉
+            </button>
             <Link
               to="/"
-              className="mt-6 block text-center font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-cream shadow-md hover:scale-[1.02] transition-transform"
+              className="mt-3 block text-center font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-cream shadow-md transition-transform hover:scale-[1.02] active:scale-95"
             >
               Create your own card ↗
             </Link>

@@ -173,3 +173,7 @@
 @media (prefers-reduced-motion: reduce) {
   .pop, .pop2, .twinkle, .shine, .rise, .confetti-fall, .confetti-burst, .lid { animation: none !important }
 }
+
+@keyframes wobble { 0%,100% { transform: rotate(-6deg) } 50% { transform: rotate(6deg) } }
+.wobble { display: inline-block; animation: wobble 2.2s ease-in-out infinite }
+@media (prefers-reduced-motion: reduce) { .wobble { animation: none !important } }
