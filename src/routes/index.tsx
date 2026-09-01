@@ -33,13 +33,12 @@ function Create() {
   const [from, setFrom] = useState("The Crew");
   const [theme, setTheme] = useState<ThemeId>("cosmos");
   const [link, setLink] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const t = getTheme(theme);
-  const token = useMemo(
-    () => encodeCard({ to, message, from, theme }),
-    [to, message, from, theme],
-  );
 
   const copy = async (url: string) => {
     try {
@@ -52,9 +51,19 @@ function Create() {
   };
 
   const generate = async () => {
-    const url = `${window.location.origin}/c/${token}`;
-    setLink(url);
-    await copy(url);
+    setSaving(true);
+    setError(null);
+    try {
+      const newCode = await saveCard({ to, message, from, theme });
+      const url = `${window.location.origin}/c/${newCode}`;
+      setCode(newCode);
+      setLink(url);
+      await copy(url);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong. Try again.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const share = async (url: string) => {
@@ -68,6 +77,8 @@ function Create() {
     }
     await copy(url);
   };
+
+
 
 
   return (
