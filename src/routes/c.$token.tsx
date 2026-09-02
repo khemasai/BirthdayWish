@@ -128,19 +128,20 @@ function CardView() {
                   {data.to || "Friend"}!
                 </h1>
                 <p
-                  className="text-ink/70 text-sm mt-4 leading-relaxed whitespace-pre-wrap rise"
+                  className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap rise ${t.bodyText}`}
                   style={{ animationDelay: ".95s" }}
                 >
                   {data.message}
                 </p>
                 <div
-                  className="mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-brand/70 rise"
+                  className={`mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest rise ${t.mutedText}`}
                   style={{ animationDelay: "1.1s" }}
                 >
                   <span>✦</span>
                   <span>from {data.from || "someone lovely"}</span>
                   <span>✦</span>
                 </div>
+
               </div>
             </div>
             <button
