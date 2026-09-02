@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# Birthday Blast
+
+create a responsive website for birthday wish with card opening animations and a user creates a card and generates a link then other user opens the link and see animation of card displaying birthday wishes use partypoppers like animations and while user creating give options for theme selection
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://party-pop-cards.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/12396256-db57-4d6d-aab3-44b6a8cc724f).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
