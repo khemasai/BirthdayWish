@@ -162,7 +162,7 @@ function CardView() {
       </main>
 
       <footer className="relative z-10 px-6 sm:px-12 pb-8 text-white/60 text-xs text-center flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-        <span>Made with PartyPop Studio</span>
+        <span>Made with PartyPop Studio by HEMASAI - </span>
         <a
           href="https://hema-sai.netlify.app/"
           target="_blank"
