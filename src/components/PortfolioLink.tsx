@@ -10,7 +10,7 @@ export function PortfolioLink() {
       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-ink text-gold text-[10px]">
         👀
       </span>
-      <span className="pointer-events-none absolute -top-2.5 -right-2 bg-accent text-cream text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md peek">
+      <span className="pointer-events-none absolute -top-2.5 -right-2 bg-accent text-dark text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md peek">
         take a look
       </span>
     </a>
