@@ -322,14 +322,7 @@ function Create() {
       <footer className="relative z-10 px-6 sm:px-12 pb-8 text-white/60 text-xs flex flex-wrap items-center gap-x-6 gap-y-2">
         <span>© 2026 PartyPop Studio</span>
         <span>Every card ships with confetti. No two the same.</span>
-        <a
-          href="https://hema-sai.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-white underline underline-offset-2 transition-colors"
-        >
-          Portfolio
-        </a>
+        <PortfolioLink />
       </footer>
     </div>
   );

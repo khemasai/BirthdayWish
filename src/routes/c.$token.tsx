@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Confetti } from "@/components/Confetti";
+import { PortfolioLink } from "@/components/PortfolioLink";
 import { getTheme } from "@/lib/card";
 import { loadCard } from "@/lib/cards.api";
 
