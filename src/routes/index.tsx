@@ -296,22 +296,23 @@ function Create() {
                 >
                   Happy Birthday
                 </p>
-                <p className="font-display font-semibold text-brand text-4xl mt-1 break-words">
+                <p className={`font-display font-semibold text-4xl mt-1 break-words ${t.accentText}`}>
                   {to || "Friend"}!
                 </p>
-                <p className="text-ink/70 text-sm mt-4 leading-relaxed whitespace-pre-wrap">
+                <p className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap ${t.bodyText}`}>
                   {message}
                 </p>
-                <div className="mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-brand/70">
+                <div className={`mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest ${t.mutedText}`}>
                   <span>✦</span>
                   <span>from {from || "someone lovely"}</span>
                   <span>✦</span>
                 </div>
-                <div className="mt-6 flex items-center justify-center gap-1.5 text-[11px] font-semibold text-ink/50">
+                <div className={`mt-6 flex items-center justify-center gap-1.5 text-[11px] font-semibold ${t.mutedText}`}>
                   <span className="w-2 h-2 rounded-full bg-green inline-block" />
                   live preview
                 </div>
               </div>
+
             </div>
           </div>
         </div>

@@ -80,7 +80,7 @@ function CardView() {
             <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
               <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
                 <p className="text-5xl wobble">✉️</p>
-                <p className="mt-4 text-[11px] font-bold uppercase tracking-widest text-brand/70">
+                <p className={`mt-4 text-[11px] font-bold uppercase tracking-widest ${t.mutedText}`}>
                   Sealed for
                 </p>
                 <p
@@ -88,6 +88,7 @@ function CardView() {
                 >
                   {data.to || "You"}
                 </p>
+
                 <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-300 group-hover:scale-105">
                   Tap to open 🎉
                 </p>
@@ -127,19 +128,20 @@ function CardView() {
                   {data.to || "Friend"}!
                 </h1>
                 <p
-                  className="text-ink/70 text-sm mt-4 leading-relaxed whitespace-pre-wrap rise"
+                  className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap rise ${t.bodyText}`}
                   style={{ animationDelay: ".95s" }}
                 >
                   {data.message}
                 </p>
                 <div
-                  className="mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-brand/70 rise"
+                  className={`mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest rise ${t.mutedText}`}
                   style={{ animationDelay: "1.1s" }}
                 >
                   <span>✦</span>
                   <span>from {data.from || "someone lovely"}</span>
                   <span>✦</span>
                 </div>
+
               </div>
             </div>
             <button
