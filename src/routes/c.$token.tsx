@@ -155,14 +155,29 @@ function CardView() {
 
               <div className="pointer-events-none absolute left-1/2 -bottom-9 -translate-x-1/2">
                 <div className="relative grid place-items-center h-24 w-24">
-                  <span
-                    className={`absolute inset-0 rounded-full ${holding ? "seal-ring" : ""}`}
-                    style={{
-                      background: holding
-                        ? "conic-gradient(var(--color-gold) var(--seal-progress,0%), rgba(255,255,255,.22) 0)"
-                        : "conic-gradient(rgba(255,255,255,.25) 0 100%)",
-                    }}
-                  />
+                  <svg className="absolute inset-0 h-24 w-24 -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="45"
+                      fill="none"
+                      stroke="rgba(255,255,255,.28)"
+                      strokeWidth="5"
+                    />
+                    {holding && (
+                      <circle
+                        className="seal-ring"
+                        cx="50"
+                        cy="50"
+                        r="45"
+                        fill="none"
+                        stroke="var(--color-gold)"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                        pathLength={100}
+                      />
+                    )}
+                  </svg>
                   <span className="absolute inset-[6px] rounded-full bg-gradient-to-br from-accent via-gold to-accent shine shadow-xl shadow-accent/50" />
                   <span
                     className={`relative text-3xl transition-transform duration-200 ${holding ? "scale-90" : "peek"}`}
