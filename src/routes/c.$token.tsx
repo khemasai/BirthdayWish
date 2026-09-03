@@ -178,17 +178,11 @@ function CardView() {
       </main>
 
 
-      <footer className="relative z-10 px-6 sm:px-12 pb-8 text-white/60 text-xs text-center flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-        <span>Made with PartyPop Studio by HEMASAI - </span>
-        <a
-          href="https://hema-sai.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-white underline underline-offset-2 transition-colors"
-        >
-          Portfolio
-        </a>
+      <footer className="relative z-10 px-6 sm:px-12 pb-10 pt-4 text-white/70 text-xs text-center flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+        <span>Made with PartyPop Studio by HEMASAI</span>
+        <PortfolioLink />
       </footer>
+
     </div>
   );
 }
