@@ -223,10 +223,9 @@ function CardView() {
                       Happy Birthday
                     </p>
                     <h1
-                      className={`font-display font-semibold text-4xl mt-1 break-words rise ${t.accentText}`}
-                      style={{ animationDelay: ".8s" }}
+                      className={`font-display font-semibold text-4xl mt-1 break-words preserve3d ${t.accentText}`}
                     >
-                      {data.to || "Friend"}!
+                      <LetterReveal text={`${data.to || "Friend"}!`} delay={0.85} />
                     </h1>
                     <p
                       className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap rise ${t.bodyText}`}
