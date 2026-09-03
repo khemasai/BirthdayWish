@@ -58,7 +58,25 @@ function CardView() {
   const { card: data } = Route.useLoaderData();
   const [open, setOpen] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
+  const [holding, setHolding] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const t = getTheme(data?.theme ?? "cosmos");
+
+  const clearHold = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+  };
+  const startHold = () => {
+    if (holding) return;
+    setHolding(true);
+    clearHold();
+    timer.current = setTimeout(() => setOpen(true), HOLD_MS);
+  };
+  const cancelHold = () => {
+    setHolding(false);
+    clearHold();
+  };
+  useEffect(() => clearHold, []);
 
 
   if (!data) {
