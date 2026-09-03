@@ -70,35 +70,42 @@ function CardView() {
       />
       {open && <Confetti key={burstKey} colors={t.confetti} count={48} burst />}
 
-      <main className="relative z-10 flex-1 grid place-items-center px-6 py-12">
+      <main className="relative z-10 flex-1 grid place-items-center px-6 py-12 scene">
         {!open ? (
           <button
             onClick={() => setOpen(true)}
-            className="pop group relative w-full max-w-sm text-center transition-transform duration-300 hover:-translate-y-1 active:scale-95 focus:outline-none"
+            className="pop group relative w-full max-w-sm text-center focus:outline-none preserve3d"
             aria-label="Open your birthday card"
           >
-            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60 transition-opacity duration-300 group-hover:opacity-90" />
-            <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
-              <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
-                <p className="text-5xl wobble">✉️</p>
-                <p className={`mt-4 text-[11px] font-bold uppercase tracking-widest ${t.mutedText}`}>
-                  Sealed for
-                </p>
-                <p
-                  className={`font-display font-bold text-4xl mt-1 break-words ${t.accentText}`}
-                >
-                  {data.to || "You"}
-                </p>
+            <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60 transition-opacity duration-300 group-hover:opacity-95" />
+            <div className="envelope3d preserve3d transition-transform duration-300 group-hover:-translate-y-1 group-active:scale-95">
+              <div className={`relative rounded-[1.8rem] p-[3px] shine overflow-hidden ${t.card}`}>
+                <span className="sheen" />
+                <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
+                  <p className="text-5xl wobble">✉️</p>
+                  <p className={`mt-4 text-[11px] font-bold uppercase tracking-widest ${t.mutedText}`}>
+                    Sealed for
+                  </p>
+                  <p
+                    className={`font-display font-bold text-4xl mt-1 break-words ${t.accentText}`}
+                  >
+                    {data.to || "You"}
+                  </p>
 
-                <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-300 group-hover:scale-105">
-                  Tap to open 🎉
-                </p>
+                  <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-300 group-hover:scale-105">
+                    Tap to open 🎉
+                  </p>
+                </div>
               </div>
+              <div
+                className="pointer-events-none absolute inset-x-6 -bottom-5 h-6 rounded-[50%] bg-ink/40 blur-lg"
+                aria-hidden="true"
+              />
             </div>
           </button>
 
         ) : (
-          <div className="relative w-full max-w-sm">
+          <div className="relative w-full max-w-sm preserve3d">
             <span className="absolute -top-8 left-2 text-gold text-2xl twinkle">✦</span>
             <span
               className="absolute -bottom-6 right-2 text-white text-xl twinkle"
@@ -108,58 +115,68 @@ function CardView() {
             </span>
             <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60" />
             <div
-              className={`pointer-events-none lid absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
+              className={`pointer-events-none lid3d absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
             />
-            <div className={`relative rounded-[1.8rem] p-[3px] shine ${t.card}`}>
-              <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
-                <Confetti colors={t.confetti} count={8} />
-                <p className="text-5xl rise" style={{ animationDelay: ".5s" }}>
-                  🎂
-                </p>
-                <p
-                  className={`font-display font-bold text-3xl mt-2 text-transparent bg-clip-text rise ${t.title}`}
-                  style={{ animationDelay: ".65s" }}
-                >
-                  Happy Birthday
-                </p>
-                <h1
-                  className={`font-display font-semibold text-4xl mt-1 break-words rise ${t.accentText}`}
-                  style={{ animationDelay: ".8s" }}
-                >
-                  {data.to || "Friend"}!
-                </h1>
-                <p
-                  className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap rise ${t.bodyText}`}
-                  style={{ animationDelay: ".95s" }}
-                >
-                  {data.message}
-                </p>
-                <div
-                  className={`mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest rise ${t.mutedText}`}
-                  style={{ animationDelay: "1.1s" }}
-                >
-                  <span>✦</span>
-                  <span>from {data.from || "someone lovely"}</span>
-                  <span>✦</span>
-                </div>
+            <div className="card3d preserve3d">
+              <div className="card3d-float preserve3d">
+                <div className={`relative rounded-[1.8rem] p-[3px] shine overflow-hidden ${t.card}`}>
+                  <span className="sheen" />
+                  <div className={`relative rounded-[1.6rem] ${t.inner} p-8 text-center overflow-hidden transition-colors duration-500`}>
+                    <Confetti colors={t.confetti} count={8} />
+                    <p className="text-5xl rise" style={{ animationDelay: ".5s" }}>
+                      🎂
+                    </p>
+                    <p
+                      className={`font-display font-bold text-3xl mt-2 text-transparent bg-clip-text rise ${t.title}`}
+                      style={{ animationDelay: ".65s" }}
+                    >
+                      Happy Birthday
+                    </p>
+                    <h1
+                      className={`font-display font-semibold text-4xl mt-1 break-words rise ${t.accentText}`}
+                      style={{ animationDelay: ".8s" }}
+                    >
+                      {data.to || "Friend"}!
+                    </h1>
+                    <p
+                      className={`text-sm mt-4 leading-relaxed whitespace-pre-wrap rise ${t.bodyText}`}
+                      style={{ animationDelay: ".95s" }}
+                    >
+                      {data.message}
+                    </p>
+                    <div
+                      className={`mt-5 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest rise ${t.mutedText}`}
+                      style={{ animationDelay: "1.1s" }}
+                    >
+                      <span>✦</span>
+                      <span>from {data.from || "someone lovely"}</span>
+                      <span>✦</span>
+                    </div>
 
+                  </div>
+                </div>
               </div>
+              <div
+                className="pointer-events-none absolute inset-x-8 -bottom-6 h-7 rounded-[50%] bg-ink/40 blur-lg"
+                aria-hidden="true"
+              />
             </div>
             <button
               onClick={() => setBurstKey((k) => k + 1)}
-              className="mt-6 w-full font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform hover:scale-[1.02] active:scale-95"
+              className="relative z-30 mt-8 w-full font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform hover:scale-[1.02] active:scale-95"
             >
               Pop the confetti again 🎉
             </button>
             <Link
               to="/"
-              className="mt-3 block text-center font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-cream shadow-md transition-transform hover:scale-[1.02] active:scale-95"
+              className="relative z-30 mt-3 block text-center font-display font-semibold text-ink text-sm px-5 py-3 rounded-2xl bg-cream shadow-md transition-transform hover:scale-[1.02] active:scale-95"
             >
               Create your own card ↗
             </Link>
           </div>
         )}
       </main>
+
 
       <footer className="relative z-10 px-6 sm:px-12 pb-8 text-white/60 text-xs text-center flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
         <span>Made with PartyPop Studio by HEMASAI - </span>
