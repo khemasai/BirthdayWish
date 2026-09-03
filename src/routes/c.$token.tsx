@@ -207,7 +207,7 @@ function CardView() {
             <div
               className={`pointer-events-none lid3d absolute inset-x-0 top-0 h-1/2 rounded-t-[1.8rem] ${t.card} z-20`}
             />
-            <div className="card3d preserve3d">
+            <div key={burstKey} className="card3d preserve3d">
               <div className="card3d-float preserve3d">
                 <div className={`relative rounded-[1.8rem] p-[3px] shine overflow-hidden ${t.card}`}>
                   <span className="sheen" />
