@@ -118,32 +118,62 @@ function CardView() {
       <main className="relative z-10 flex-1 grid place-items-center px-6 py-12 scene">
         {!open ? (
           <button
-            onClick={() => setOpen(true)}
-            className="pop group relative w-full max-w-sm text-center focus:outline-none preserve3d"
-            aria-label="Open your birthday card"
+            onPointerDown={startHold}
+            onPointerUp={cancelHold}
+            onPointerLeave={cancelHold}
+            onPointerCancel={cancelHold}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                startHold();
+              }
+            }}
+            onKeyUp={cancelHold}
+            className="pop group relative w-full max-w-sm text-center focus:outline-none preserve3d touch-none select-none"
+            aria-label="Press and hold the wax seal to open your birthday card"
           >
             <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold via-accent to-brand2 blur-xl opacity-60 transition-opacity duration-300 group-hover:opacity-95" />
-            <div className="envelope3d preserve3d transition-transform duration-300 group-hover:-translate-y-1 group-active:scale-95">
+            <div
+              className={`envelope3d preserve3d transition-transform duration-300 group-hover:-translate-y-1 ${holding ? "rumble" : ""}`}
+            >
               <div className={`relative rounded-[1.8rem] p-[3px] shine overflow-hidden ${t.card}`}>
                 <span className="sheen" />
-                <div className={`rounded-[1.6rem] ${t.inner} px-8 py-14`}>
+                <div className={`rounded-[1.6rem] ${t.inner} px-8 pt-12 pb-16`}>
                   <p className="text-5xl wobble">✉️</p>
                   <p className={`mt-4 text-[11px] font-bold uppercase tracking-widest ${t.mutedText}`}>
                     Sealed for
                   </p>
-                  <p
-                    className={`font-display font-bold text-4xl mt-1 break-words ${t.accentText}`}
-                  >
-                    {data.to || "You"}
+                  <p className={`font-display font-bold text-4xl mt-1 break-words ${t.accentText}`}>
+                    <LetterReveal text={data.to || "You"} delay={0.35} />
                   </p>
 
-                  <p className="mt-5 inline-block font-display font-semibold text-ink text-sm px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent via-gold to-accent shine shadow-lg shadow-accent/40 transition-transform duration-300 group-hover:scale-105">
-                    Tap to open 🎉
+                  <p className={`mt-6 text-[11px] font-bold uppercase tracking-[0.2em] ${t.mutedText}`}>
+                    {holding ? "Almost there…" : "Press & hold the seal"}
                   </p>
                 </div>
               </div>
+
+              <div className="pointer-events-none absolute left-1/2 -bottom-9 -translate-x-1/2">
+                <div className="relative grid place-items-center h-24 w-24">
+                  <span
+                    className={`absolute inset-0 rounded-full ${holding ? "seal-ring" : ""}`}
+                    style={{
+                      background: holding
+                        ? "conic-gradient(var(--color-gold) var(--seal-progress,0%), rgba(255,255,255,.22) 0)"
+                        : "conic-gradient(rgba(255,255,255,.25) 0 100%)",
+                    }}
+                  />
+                  <span className="absolute inset-[6px] rounded-full bg-gradient-to-br from-accent via-gold to-accent shine shadow-xl shadow-accent/50" />
+                  <span
+                    className={`relative text-3xl transition-transform duration-200 ${holding ? "scale-90" : "peek"}`}
+                  >
+                    🎉
+                  </span>
+                </div>
+              </div>
+
               <div
-                className="pointer-events-none absolute inset-x-6 -bottom-5 h-6 rounded-[50%] bg-ink/40 blur-lg"
+                className="pointer-events-none absolute inset-x-6 -bottom-5 h-6 rounded-[50%] bg-ink/40 blur-lg -z-10"
                 aria-hidden="true"
               />
             </div>
