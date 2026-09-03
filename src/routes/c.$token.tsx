@@ -1,5 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const HOLD_MS = 950;
+
+function LetterReveal({
+  text,
+  className,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <span className={`inline-block preserve3d ${className ?? ""}`} aria-label={text}>
+      {Array.from(text).map((ch, i) => (
+        <span
+          key={`${ch}-${i}`}
+          aria-hidden="true"
+          className="inline-block letter3d"
+          style={{ animationDelay: `${delay + i * 0.06}s` }}
+        >
+          {ch === " " ? "\u00A0" : ch}
+        </span>
+      ))}
+    </span>
+  );
+}
 import { Confetti } from "@/components/Confetti";
 import { PortfolioLink } from "@/components/PortfolioLink";
 import { getTheme } from "@/lib/card";
